@@ -2,51 +2,6 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@components": ["./components"],
-      "@components/*": ["./components/*"],
-
-      "@constants": ["./constants"],
-      "@constants/*": ["./constants/*"],
-
-      "@helpers": ["./helpers"],
-      "@helpers/*": ["./helpers/*"],
-
-      "@pages": ["./pages"],
-      "@pages/*": ["./pages/*"],
-
-      // 需要個別設制兩個, import from "@store" 才能會對應到  "src/store/index"
-      // 如果只設定  "@store": ["./store"], 就需要 from "@store/index"
-      
-      "@store": ["./store"],
-      "@store/*": ["./store/*"],
-
-      "@services": ["./services"],
-      "@services/*" : ["./services/*"],
-
-      "@configs": ["./configs"],
-      "@configs/*" : ["./configs/*"],
-
-      "@mocks": ["./mocks"],
-      "@mocks/*" : ["./mocks/*"],
-
-      "@hooks": ["./hooks"],
-      "@hooks/*" : ["./hooks/*"],
-
-      "@stories": ["./stories"],
-      "@stories/*" : ["./stories/*"],
-
-      "@assets": ["./assets"],
-      "@assets/*" : ["./assets/*"],
-
-     
-      // 會與 @types module 衝突, 所以改用 @customTypes
-      "@customTypes": ["./types"],
-      "@customTypes/*" : ["./types/*"],
-
-      "@tests": ["./tests"],
-      "@tests/*" : ["./tests/*"],
-      
-
       "@/*": ["./*"]
     }
   }

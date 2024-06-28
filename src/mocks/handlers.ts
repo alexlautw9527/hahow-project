@@ -1,3 +1,3 @@
-import { authHandlers } from "@mocks/auth/handler";
+// import { authHandlers } from '@/mocks/auth/handler';
 
-export const mswHandlers = [...authHandlers];
+// export const mswHandlers = [...authHandlers];
