@@ -1,20 +1,16 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
-<Meta title="Storybook 說明" ti/>
+<Meta title="Storybook 說明" />
 
 ## Why Storybook
 
 - **強迫促進「元件化思考」**，更去思考如何打造乾淨可重用的元件，進行關注點分例
 - 友善介面，一目了然看到已有元件
-	- 設計、前端、PM 方便溝通，也可以連動 Figma 一起對照
-	- 避免重工
-	- 思考到目前產品的元件規模都非常龐大，若有 storybook 或許能快速得知元件規格，方便除錯與開發
+  - 設計、前端、PM 方便溝通，也可以連動 Figma 一起對照
+  - 避免重工
+  - 思考到目前產品的元件規模都非常龐大，若有 storybook 或許能快速得知元件規格，方便除錯與開發
 - 高度互動化文檔
 - 開發元件時，可使用 Storybook 作為獨立的開發環境，方便調試
-
-## 規範說明
-
-開發中
 
 ## 使用 Decorator 作為 wrapper
 
@@ -24,22 +20,19 @@ import { Meta } from "@storybook/blocks";
 - 在 `*.stories.tsx` 的 Meta 設定：對於單一元件底下所有 story 進行包裝
 - 在 `*.stories.tsx` 的 Story 設定：對於單一 story 進行包裝
 
-## i18n 
+## i18n
 
 在元件的上方點擊地球 icon，可方便切換語系，也可以關閉，只顯示 i18n key
 
->要注意的是，如果那個 Story 的 parameters中，`isTestingMode: true`，切換語系會無作用，以維持測試抓取元件的一致性
+> 要注意的是，如果那個 Story 的 parameters中，`isTestingMode: true`，切換語系會無作用，以維持測試抓取元件的一致性
 
 ## 測試說明
 
-統一使用 i18n key 來抓取元件文字，方便維護與調整，若該 Story 需要跑 intersection test，可以在該元件 Story 的 paramerter 加入 `isTestingMode: true`，這樣就會自動將文字轉換成 i18n key 
+統一使用 i18n key 來抓取元件文字，方便維護與調整，若該 Story 需要跑 intersection test，可以在該元件 Story 的 paramerter 加入 `isTestingMode: true`，這樣就會自動將文字轉換成 i18n key
 
 相關原理與基礎設定，請參考 `.storybook/preview.tsx`
-
-
 
 ## 參考資料
 
 - [MDX 撰寫說明](https://storybook.js.org/docs/writing-docs/mdx)
 - [Actions 參考](https://storybook.js.org/docs/essentials/actions)
-

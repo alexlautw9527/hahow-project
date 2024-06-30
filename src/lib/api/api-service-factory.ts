@@ -25,29 +25,11 @@ export type ServiceMetaConfig = AxiosRequestConfig & {
   method: Extract<Method, 'get' | 'post' | 'put' | 'delete' | 'patch'>;
 };
 
-/**
- * 後端 response data 回傳的格式
- * @template TData 後端 核心 data 的資料型別
- * @property {TData | null} data - 後端回傳的核心資料
- * @property {number} code - 後端回傳的狀態碼
- * @property {string | null} msg - 後端回傳的 i18n key
- * @property {Object | null} msgParams - 後端回傳的 i18n key 要填入模版的參數
- * @property {Object | null} errors - 後端回傳的錯誤訊息
- */
-export type BackendResult<TData = null> = {
-  data: TData | null;
-  code: number;
-  msg: string | null;
-  msgParams: { [key: string]: any } | null;
-  errors: { [key: string]: any } | null;
-};
-
 // 後端 result 經由包裝後, service 函數回傳的格式
 export type ServiceResult<TData = null> = {
-  data: BackendResult<TData>['data'];
+  data: TData;
   err: AxiosError | Error | null;
-  rawResponse: AxiosResponse<BackendResult<TData>> | null;
-  backendResult: BackendResult<TData> | null;
+  rawResponse: AxiosResponse<TData> | null;
 };
 
 export class ServiceError extends Error {
@@ -55,13 +37,10 @@ export class ServiceError extends Error {
 
   rawResponse: ServiceResult['rawResponse'];
 
-  backendResult: ServiceResult['backendResult'];
-
   constructor(message: string, serviceResult: Omit<ServiceResult, 'data'>) {
     super(message);
     this.err = serviceResult?.err;
     this.rawResponse = serviceResult?.rawResponse;
-    this.backendResult = serviceResult?.backendResult;
   }
 }
 
@@ -118,7 +97,6 @@ function createService<TReqOptions, TData = null>(
       pathParams,
       ...serviceMetaConfig,
 
-      // 預設為 true
       authRequired: authRequired ?? true,
 
       headers: {
@@ -127,18 +105,13 @@ function createService<TReqOptions, TData = null>(
     };
 
     try {
-      const rawResponse: AxiosResponse<
-        BackendResult<TData>,
-        ServiceMetaConfig
-      > = await axiosInstance.request<BackendResult<TData>>(mergedConfig);
-
-      const backendResult = rawResponse.data;
+      const rawResponse: AxiosResponse<TData, ServiceMetaConfig> =
+        await axiosInstance.request<TData>(mergedConfig);
 
       return {
         err: null,
-        data: backendResult?.data || null,
+        data: rawResponse?.data || null,
         rawResponse,
-        backendResult,
       } as ServiceResult<TData>;
     } catch (err: any) {
       // 任何從 axios 中拋出的錯誤，包含攔截器或 400、500 等錯誤, 都會被這裡的 catch 捕捉
@@ -149,7 +122,6 @@ function createService<TReqOptions, TData = null>(
       const serviceResult = {
         err,
         rawResponse: err.response || null,
-        backendResult: err.response?.data || null,
       };
 
       throw new ServiceError('Service Error', serviceResult);

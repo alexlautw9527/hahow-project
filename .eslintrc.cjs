@@ -27,6 +27,9 @@ module.exports = {
       { allowConstantExport: true },
     ],
 
+    // emotion css prop
+    'react/no-unknown-property': ['error', { ignore: ['css'] }],
+
     // functional component 使用函數預設參數作為 defaultProps, 不另外定義 defaultProps
     'react/require-default-props': [
       'error',

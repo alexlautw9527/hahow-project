@@ -1,0 +1,16 @@
+{
+  "hero-profile": {
+    "title": "配置你的英雄能力！ - {{heroName}}"
+  },
+  "character-editor": {
+    "text": {
+      "str": "力量",
+      "agi": "敏捷",
+      "int": "智慧",
+      "luk": "幸運",
+      "remaining-points": "剩餘點數",
+      "save": "儲存",
+      "cancel": "取消"
+    }
+  }
+}

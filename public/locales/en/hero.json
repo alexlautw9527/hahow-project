@@ -1,0 +1,16 @@
+{
+  "hero-profile": {
+    "title": "Customize Your Hero's Abilities - {{heroName}}"
+  },
+  "character-editor": {
+    "text": {
+      "str": "Strength",
+      "agi": "Agility",
+      "int": "Intelligence",
+      "luk": "Luck",
+      "remaining-points": "Remaining Points",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+  }
+}

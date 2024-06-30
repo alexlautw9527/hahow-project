@@ -7,4 +7,4 @@ export {
 
 export type { LocalStorageKey } from '@/utils//localStorage';
 
-export { concatFullUrl } from '@/utils//url';
+export { concatFullUrl } from '@/utils/url';

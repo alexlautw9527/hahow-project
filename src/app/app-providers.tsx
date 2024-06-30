@@ -1,5 +1,10 @@
 import { Provider } from 'react-redux';
 import { store } from '@/stores';
+import {
+  ChakraBaseProvider,
+  extendTheme,
+  withDefaultColorScheme,
+} from '@chakra-ui/react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -21,13 +26,27 @@ declare module '@tanstack/react-router' {
 
 const queryClient = new QueryClient();
 
+const customTheme = extendTheme(
+  withDefaultColorScheme({
+    colorScheme: 'teal',
+  }),
+  {
+    fonts: {
+      heading: `'Anton', sans-serif`,
+      body: 'Inter, sans-serif',
+    },
+  }
+);
+
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        {/* {isLocal && <ReactQueryDevtools initialIsOpen={false} />} */}
-        {children}
-      </QueryClientProvider>
-    </Provider>
+    <ChakraBaseProvider theme={customTheme}>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          {/* {isLocal && <ReactQueryDevtools initialIsOpen={false} />} */}
+          {children}
+        </QueryClientProvider>
+      </Provider>
+    </ChakraBaseProvider>
   );
 }

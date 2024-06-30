@@ -1,5 +1,5 @@
-import { ParseKeys } from "i18next";
-import type { Namespace, DefaultNamespace } from "i18next";
+import { ParseKeys } from 'i18next';
+import type { Namespace, DefaultNamespace } from 'i18next';
 
 /**
  * 從 typeScript 運算合法的 i18n key 值範圍

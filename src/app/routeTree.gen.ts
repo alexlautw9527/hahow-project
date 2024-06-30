@@ -11,13 +11,25 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as HeroesImport } from './routes/heroes'
 import { Route as IndexImport } from './routes/index'
+import { Route as HeroesHeroIdImport } from './routes/heroes.$heroId'
 
 // Create/Update Routes
+
+const HeroesRoute = HeroesImport.update({
+  path: '/heroes',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const HeroesHeroIdRoute = HeroesHeroIdImport.update({
+  path: '/$heroId',
+  getParentRoute: () => HeroesRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -28,11 +40,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/heroes': {
+      preLoaderRoute: typeof HeroesImport
+      parentRoute: typeof rootRoute
+    }
+    '/heroes/$heroId': {
+      preLoaderRoute: typeof HeroesHeroIdImport
+      parentRoute: typeof HeroesImport
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexRoute])
+export const routeTree = rootRoute.addChildren([
+  IndexRoute,
+  HeroesRoute.addChildren([HeroesHeroIdRoute]),
+])
 
 /* prettier-ignore-end */
