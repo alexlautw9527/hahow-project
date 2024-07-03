@@ -21,6 +21,11 @@
 - `npm run test`：開啟測試
 - `npm run build-storybook`: 編譯 storybook 至靜態檔
 
+## 佈署網址
+
+- Main: https://hahow-alex.netlify.app/heroes
+- Storybook: https://hahow-alex-storybook.netlify.app/
+
 ## 專案結構
 
 ```
