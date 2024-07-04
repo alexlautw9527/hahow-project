@@ -49,12 +49,13 @@ export default function SingleAttribute({
         width={['full', 40]}
       >
         <IconButton
-          onClick={onAdd}
+          onClick={onMinus}
+          colorScheme="red"
           borderRadius="full"
-          isDisabled={isAddDisabled || isDisabled}
-          icon={<IoIosAddCircle size={20} />}
-          aria-label="add"
-          data-testid={TEST_IDS.ADD_BUTTON}
+          isDisabled={isMinusDisabled || isDisabled}
+          icon={<IoIosRemoveCircle size={20} />}
+          aria-label="minus"
+          data-testid={TEST_IDS.MINUS_BUTTON}
         />
         <p
           css={css({
@@ -66,13 +67,12 @@ export default function SingleAttribute({
           {point}
         </p>
         <IconButton
-          onClick={onMinus}
-          colorScheme="red"
+          onClick={onAdd}
           borderRadius="full"
-          isDisabled={isMinusDisabled || isDisabled}
-          icon={<IoIosRemoveCircle size={20} />}
-          aria-label="minus"
-          data-testid={TEST_IDS.MINUS_BUTTON}
+          isDisabled={isAddDisabled || isDisabled}
+          icon={<IoIosAddCircle size={20} />}
+          aria-label="add"
+          data-testid={TEST_IDS.ADD_BUTTON}
         />
       </Flex>
     </Stack>
