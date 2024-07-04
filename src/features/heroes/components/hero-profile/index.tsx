@@ -1,1 +1,1 @@
-export { default } from './hero-profile';
+export { default } from '@/features/heroes/components/hero-profile/hero-profile';

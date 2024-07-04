@@ -7,7 +7,6 @@ import {
 } from '@chakra-ui/react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { createRouter } from '@tanstack/react-router';
 
@@ -43,7 +42,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ChakraBaseProvider theme={customTheme}>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
-          {/* {isLocal && <ReactQueryDevtools initialIsOpen={false} />} */}
           {children}
         </QueryClientProvider>
       </Provider>

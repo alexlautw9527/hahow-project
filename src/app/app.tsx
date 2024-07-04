@@ -8,13 +8,6 @@ const router = createRouter({
   routeTree,
 });
 
-// TanStack Router 型別安全的起手式
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router;
-  }
-}
-
 export default function App() {
   setupAxiosInterceptors();
 

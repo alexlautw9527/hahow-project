@@ -8,7 +8,7 @@ import { useAppDispatch } from '@/stores';
 import { updateSelectedHeroId } from '@/stores/global/global-slice';
 
 import { useEffect } from 'react';
-import CharacterEditor from './character-editor';
+import CharacterEditor from '@/features/heroes/components/hero-profile/character-editor';
 
 import type { CharacterEditorProps } from './character-editor';
 

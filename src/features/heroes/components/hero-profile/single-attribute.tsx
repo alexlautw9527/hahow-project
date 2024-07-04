@@ -46,8 +46,7 @@ export default function SingleAttribute({
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        // flex={1}
-        width={['full', 44]}
+        width={['full', 40]}
       >
         <IconButton
           onClick={onAdd}

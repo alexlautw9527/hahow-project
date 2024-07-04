@@ -41,9 +41,6 @@ function HeroIdPage() {
           defaultValue={i18n.language}
           width="150px"
           onChange={handleChangeLanguage}
-          css={css({
-            width: 150,
-          })}
         >
           <option value="en">English</option>
           <option value="zh-TW">繁體中文</option>

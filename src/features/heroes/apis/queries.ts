@@ -1,11 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiService } from './services';
-import { API_SERVICES } from './configs';
+import { apiService } from '@/features/heroes/apis/services';
+import { API_SERVICES } from '@/features/heroes/apis/configs';
 import {
   FetchHeroProfileRequestOptions,
   FetchHeroRequestOptions,
   UpdateHeroProfileRequestOptions,
-} from './types';
+} from '@/features/heroes/apis/types';
 
 export function useFetchHeroList() {
   const query = useQuery({

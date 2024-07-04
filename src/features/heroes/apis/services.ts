@@ -1,5 +1,5 @@
 import { createService } from '@/lib/api/api-service-factory';
-import { API_SERVICES, apiPath } from './configs';
+import { API_SERVICES, apiPath } from '@/features/heroes/apis/configs';
 
 import type {
   FetchHeroListData,

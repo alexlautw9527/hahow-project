@@ -50,6 +50,10 @@ export default function CharacterEditor({
     }));
   };
 
+  const handleSubmit = () => {
+    onSubmit(attributes);
+  };
+
   const handleMinusPoint = ({ type }: { type: Attributes }) => {
     if (attributes[type] <= 1) return;
     setAttributes((prev) => ({
@@ -107,9 +111,7 @@ export default function CharacterEditor({
         </p>
         <Button
           data-testid={TEST_IDS.SAVE_BUTTON}
-          onClick={() => {
-            onSubmit(attributes);
-          }}
+          onClick={handleSubmit}
           isDisabled={isSubmitDisabled}
           isLoading={isLoading}
         >
