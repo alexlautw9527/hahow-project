@@ -30,32 +30,32 @@
 
 ```
 .
-├── .storybook
+├── /.storybook
 │   ├── main.ts -- 負責 storybook 整體配置
 │   └── preview.tsx -- 負責 storybook default 渲染
-└── src
-    ├── app
-    │   ├── i18n -- 處理 i18n 相關配置
-    │   ├── routes -- TanStack Router 實際配置 (file-based)
+└── /src
+    ├── /app
+    │   ├── /i18n -- 處理 i18n 相關配置
+    │   ├── /routes -- TanStack Router 實際配置 (file-based)
     │   ├── app.tsx
     │   ├── app-providers.tsx
     │   ├── index.css
     │   └── routeTree.gen.ts -- TanStack Router 生成檔案
-    ├── components -- 通用性元件
-    ├── features -- 以模組功能劃分, 主要使用 colocation 的概念
-    │   └── heros
-    │       ├── apis -- 模組相關 api service 和 tanstack query
-    │       ├── components -- 模組相關元件
-    │       └── constants
-    ├── lib -- 放置通用性的自製函式庫
-    │   └── api
-    │       ├── interceptors
+    ├── /components -- 通用性元件
+    ├── /features -- 以模組功能劃分, 主要使用 colocation 的概念
+    │   └── /heros
+    │       ├── /apis -- 模組相關 api service 和 tanstack query
+    │       ├── /components -- 模組相關元件
+    │       └── /constants
+    ├── /lib -- 放置通用性的自製函式庫
+    │   └── /api
+    │       ├── /interceptors
     │       ├── api-service-factory.ts
     │       └── setup-axios.ts
-    ├── configs
-    ├── tests
-    ├── types
-    ├── utils
+    ├── /configs
+    ├── /tests
+    ├── /types
+    ├── /utils
     └── main.tsx
 ```
 
@@ -111,7 +111,7 @@ export const Route = createFileRoute('/artist/$artistId/song/$songId')({
 
 step1: 在以下路徑與檔名新增一個空的 tsx 檔案 `/routes/books/$bookId/chapter/$chapterId.tsx` (舉例)
 
-step2: 打開`$chapterId.tsx`，按下儲存
+step2: 打開 `$chapterId.tsx`，按下儲存
 
 以下程式碼就會自行生成
 
@@ -129,30 +129,6 @@ export const Route = createFileRoute('/books/$bookId/chapter/$chapterId')({
 
 [官方說明](https://tanstack.com/router/latest/docs/framework/react/guide/route-trees#mixed-flat-and-directory-routes)
 
-### Route Context
-
-> 目前先留下研究後記錄，專案內並無使用 Route Context
-
-TanStack Router 可注入 context
-
-這些 context 在各個 route 的生命週期都可以取用，目前已知
-
-- `createFileRoute`的 `beforeLoad`、`loader`
-- Route底下的元件調用 `Route.useRouteContext`
-
-皆可取得 context
-
-context 會有三處地方需要設置
-
-- `@routes/__root.ts`: `createRootRouteWithContext` 泛型加入 context 型別
-- `src/router.ts`: `createRouter` 設定 context 初始值
-- `src/main.tsx`: `RouterProvider` 實際傳入 context 值
-
-若有需要，可再 route 內使用 `router.invalidate()` 來重新偵測 context 變化並重新運行 `beforeLoad`、`loader`
-
-[參考來源](https://tanstack.com/router/latest/docs/framework/react/guide/router-context)
-[Invalidating TanStack Router after a mutation](https://tanstack.com/router/latest/docs/framework/react/guide/data-mutations#invalidating-tanstack-router-after-a-mutation)
-
 ## State Management 原則
 
 - **預設使用 React Query 進行管理**，大部分情境都是 API 取得資料並且單純渲染
@@ -163,6 +139,7 @@ context 會有三處地方需要設置
 - `useMutation` 和 `useQuery` 的差異
   - `useMutation`：有 `onSuccess`，可以在裡面 dispatch
   - `useQuery`：沒有 `onSuccess`，需從 useEffect 監聽，dispatch 到 RTK
+- react query 主要會在 `@/feature/[module]/api/queries` 底下組裝該模組所需 custom query hook
 
 ## 專案其他配置
 
@@ -174,7 +151,9 @@ context 會有三處地方需要設置
 
 ### API Service Lib
 
-詳見 `@/src/lib/api/api-service-factory.ts` 註解
+可用參數配置方式，快速生成 API Service 方便調用，並且內含 request 和 response 的型別
+
+詳見 `@/lib/api/api-service-factory.ts` 註解、`@/features/heroes/apis/services.ts`
 
 ### Storybook
 
@@ -219,29 +198,29 @@ context 會有三處地方需要設置
 
 會寫註解的情境：
 
-- 對於 work-around 作法或是修補，附上在 github issue 或是 stackoverflow 的來源作為備查
-  - 例如，為了排除套件之間相容性問題，查了到在 github issue 的解法，就在程式碼周圍附上參考連結
-- 對於無法一眼看穿意圖的函數或程式碼，說明來龍去脈，往後看到可以回憶起脈絡
-- 某些配置或是程式，會有隱性的行為，可能會造成 bug
-- 從結構非顯而易見，但資料或狀態面可能有耦合關係的程式碼，可以互相補充說明
+- 若碰上 work-around 作法或是修補，會附上在 github issue 或是 stackoverflow 的來源作為備查
+  - 例如，為了排除套件之間相容性問題，查到在 github issue 的解法，在程式碼周圍附上參考連結
+- 對於無法一眼看穿為何設立的函數或程式碼，可說明來龍去脈，往後看到可以回憶起脈絡
+- 某些配置或是程式會有隱性的行為，可能會造成 bug，此時也可註解說明
+- 從結構上非顯而易見，但資料或狀態面可能有耦合關係的程式碼，可以互相補充註解說明
   - 例如 react query 與 redux slice
 
 ## 在這份專案中遇到的困難、問題，以及解決的方法
 
-這次小專案在一禮拜時限之內，要完成以下事項，具有挑戰性
+這次個專案要在一禮拜時限之內完成以下事項，具有挑戰性
 
-- 從 wireframe 構思出實際的可接受的介面，並且構思可以添加什麼酷炫的樣式
-- 規劃資料夾專案配置
+- 從 wireframe 構思出實際的介面，並且思考可以添加什麼酷炫的樣式
+- 規劃資料夾結構配置
 - 實際開發元件與 API 邏輯串接，並重新熟悉 CSS-in-JS
-- 加入其他可以使專案更完整的配置，例如 i18n、Storybook、測試
+- 加入其他可使專案更完整的配置，例如 i18n、Storybook、元件測試
 
-其中構思出實際可接受的介面，並加入酷炫的樣式，可能一開始卡的比較久一些，因為目前工作經驗都在處理元件和邏輯功能居多
+其中構思可接受的實際畫面，並加入酷炫的樣式，可能會在一開始卡住一段時間，因為目前工作經驗主要是處理元件和邏輯功能居多
 
-後來發現 API 回傳的資料是漫威英雄，就從相關風格去搜尋靈感，最終想到先前玩過 Marvel Snap，從中得到 3D Tilt Card 的點子，並從中尋找類似作法並實際開發
+後來發現 API 回傳的資料是漫威英雄，想到先前玩過 Marvel Snap 手遊，從中得到 3D Tilt Card 的點子，並尋找作法並實際開發
 
 再來是 i18n、Storybook 和測試，彼此要兼容在一起也需要花許多功夫，需探討的議題有：
 
-- i18n 怎麼在測試階段架設起來？測試要用什麼文字為基準來抓取元件？（後來是使用 cimode 來統一使用 bare key 來抓取）
+- i18n 怎麼在測試階段架設起來？測試要用什麼文字為基準來抓取元件？（後來是使用 cimode 來統一使用 bare key 來抓取元件）
 - i18n 怎麼納入 Storybook？有沒有可能在 Storybook 裡面可以切換語言？
 
-以上兼容性的問題在 Chat GPT 通常不會得到很好的解答，最可靠的還是靠著精準的關鍵字搜尋，在 stackoverflow 或是 github issue 尋找別人的作法，並且 try & error
+以上兼容性的問題，在 Chat GPT 通常不會得到很好的解答，最可靠的是靠著精準關鍵字搜尋，在 stack overflow 或是 github issue 尋找別人的作法，並且 try & error
